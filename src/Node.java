@@ -14,24 +14,33 @@ public class Tree {
 
     int height (Node x) {
         if(x == null)
-            return null;
-        return x.height;
-
+            return 0;
+        else
+            return x.height;
     }
 
     void newHeight (Node x) {
-        x.height = max(height(x.left), height(x.right));
+        x.height = max(height(x.left), height(x.right))+1;
+    }
+
+    int balanceFactor(Node x) {
+        if(x == null)
+            return 0;
+        else
+            return height(x.left)-height(x.right);
     }
 
     /*
         left rotate
-                parent
-               /       \
-              B          newRoot                -->
-             / \          /       \
-            C   D      newRootChild   A
+                parent                                                          newRoot
+               /       \                                                       /       \
+              B          newRoot                -->                        parent
+                        /                                                       \
+                 newRootChild                                                  newRootChild
      */
 
+
+    //left rotation
     Node lrotate(Node parent) {
        Node newRoot = parent.right;
        Node newRootChild = newRoot.left;
@@ -42,6 +51,7 @@ public class Tree {
        return newRoot;
     }
 
+    //right rotation
     Node rrotate(Node parent) {
         Node newRoot = parent.left;
         Node newRootChild = newRoot.right;
@@ -52,6 +62,10 @@ public class Tree {
         return newRoot;
     }
 
+
+
+
+
     Node insert(Node x, int key) {
         if(x == null)
             return (new Node(key));
@@ -59,6 +73,18 @@ public class Tree {
         if(key < x.key) {
 
         }
+        else {
+            if(key > x.key) {
 
+            }
+            else
+                return null;                                  // can't be eqaul
+        }
+
+    }
+
+    public static void main(String[] args) {
+
+        insert(Node.root, 5);
     }
 }
