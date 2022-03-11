@@ -2,15 +2,14 @@ import javax.swing.*;
 
 import static java.lang.Math.max;
 
-public class Tree {
+class Tree {
 
     Node root;
 
     int height (Node x) {
         if(x == null)
-            return 0;
-        else
-            return x.height;
+            return -1;
+        return x.height;
     }
 
     void newHeight (Node x) {
@@ -21,17 +20,8 @@ public class Tree {
         if(x == null)
             return 0;
         else
-            return height(x.left)-height(x.right);
+            return height(x.right)-height(x.left);                          //zmena left a right
     }
-
-    /*
-        left rotate
-                parent                                                          newRoot
-               /       \                                                       /       \
-              B          newRoot                -->                        parent
-                        /                                                       \
-                 newRootChild                                                  newRootChild
-     */
 
 
     //left rotation
@@ -59,7 +49,7 @@ public class Tree {
     Node rebalance(Node x) {
         if(balanceFactor(x) < -1) {
             if(balanceFactor(x.left) <= 0) {
-                rrotate(x);
+                x = rrotate(x);
             }
             else {
                 x.left = lrotate(x.left);
@@ -69,7 +59,7 @@ public class Tree {
         else {
             if(balanceFactor(x) > 1) {
                 if(balanceFactor(x.right) >= 0) {
-                    lrotate(x);
+                   x = lrotate(x);
                 }
                 else {
                     x.right = rrotate(x.right);
@@ -78,15 +68,12 @@ public class Tree {
             }
         }
             return x;
-
     }
 
-
-
-
     Node insert(Node x, int key) {
-        if(x == null)
-            return new Node(key);
+        if(x == null){
+            x = new Node(key);
+        }
 
         if(key < x.key) {
             x.left = insert(x.left, key);
@@ -101,41 +88,58 @@ public class Tree {
         newHeight(x);
         return rebalance(x);
     }
+/*
+    Node delete(Node x, int key) {
+        if(x.height == 0) {
 
+        }
+
+    }
+*/
+    /*
+    Node search() {
+
+    }
+*/
     void preOrder(Node node)
     {
         if (node != null)
         {
-            System.out.print(node.key + " ");
+            System.out.print(node.key + " " + "(" + node.height + ")" + " ");
             preOrder(node.left);
             preOrder(node.right);
         }
     }
 
-    /*
 
-
-    Node delete() {
-
-    }
-
-    Node search() {
-
-    }
-*/
     public static void main(String[] args) {
 
         Tree tree = new Tree();
 
+        tree.root = tree.insert(tree.root, 9);
         tree.root = tree.insert(tree.root, 5);
-        tree.root = tree.insert(tree.root, 2);
-        tree.root = tree.insert(tree.root, 3);
         tree.root = tree.insert(tree.root, 10);
+        tree.root = tree.insert(tree.root, 0);
+        tree.root = tree.insert(tree.root, 6);
+        tree.root = tree.insert(tree.root, 11);
+        tree.root = tree.insert(tree.root, -1);
         tree.root = tree.insert(tree.root, 1);
-        tree.root = tree.insert(tree.root, 8);
+        tree.root = tree.insert(tree.root, 2);
+        tree.root = tree.insert(tree.root, 5);
         tree.root = tree.insert(tree.root, 7);
-
+        tree.root = tree.insert(tree.root, 12);
+        tree.root = tree.insert(tree.root, 8);
+        tree.root = tree.insert(tree.root, 60);
 
         tree.preOrder(tree.root);
     }
 }
+
+/*
+        left rotate
+                parent                                                          newRoot
+               /       \                                                       /       \
+              B          newRoot                -->                        parent
+                        /                                                       \
+                 newRootChild                                                  newRootChild
+     */

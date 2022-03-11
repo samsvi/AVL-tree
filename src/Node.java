@@ -3,8 +3,8 @@ public class Node {
     int height, key;
     Node left, right;
 
-    Node(int key) {
-
+    public Node(int key) {
+        this.key = key;
     }
 
 }
