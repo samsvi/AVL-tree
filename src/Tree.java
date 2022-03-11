@@ -90,17 +90,41 @@ class Tree {
     }
 /*
     Node delete(Node x, int key) {
-        if(x.height == 0) {
-
+        if (x == null) {
+            x = new Node(key);
         }
 
-    }
-*/
-    /*
-    Node search() {
+        if (key < x.key) {
+            x.left = insert(x.left, key);
+        } else {
+            if (key > x.key) {
+                x.right = insert(x.right, key);
+            } else {
+                if (x.left == null || x.right == null) {
+                }
 
+
+            }
+        }
     }
 */
+
+    Node search(int key) {
+        while(root != null) {
+            if(root.key == key) {
+                System.out.println("Nasiel som cislo " + key + " jeho vyska je : " + root.height + " ");
+                break;
+            }
+
+            if(root.key < key)
+                root = root.right;
+            else
+                root = root.left;
+        }
+
+        return root;
+    }
+
     void preOrder(Node node)
     {
         if (node != null)
@@ -132,6 +156,8 @@ class Tree {
         tree.root = tree.insert(tree.root, 60);
 
         tree.preOrder(tree.root);
+
+        tree.root = tree.search(5);
     }
 }
 
